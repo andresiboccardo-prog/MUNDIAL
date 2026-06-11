@@ -1,6 +1,8 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/public/index.html" }
-  ]
+  "name": "quiniela-mundial-2026",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@upstash/redis": "^1.34.0"
+  }
 }
