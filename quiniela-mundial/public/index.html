@@ -453,7 +453,9 @@ async function guardar(btn){
   const orig=btn.textContent;
   btn.textContent='✅ ¡Guardado para todos!';
   btn.style.background='#2d6b47';btn.style.color='white';
-  await load();
+  // Solo refrescar resultados en background sin tocar los inputs del usuario
+  const d=await api('GET');
+  if(d){S.results=d.results;S.players=d.players;renderClas();renderAdmin();}
   setTimeout(()=>{btn.textContent=orig;btn.style.background='';btn.style.color='';},2000);
 }
 
@@ -491,7 +493,17 @@ function showTab(name,el){
 // INIT
 // ═══════════════════════════════════════════════
 load();
-setInterval(()=>{badge('loading');load();},30000);
+
+// Auto-refresh cada 30s pero SOLO si el usuario no está escribiendo en un input
+let lastTyped = 0;
+document.addEventListener('input', () => { lastTyped = Date.now(); });
+setInterval(()=>{
+  if(Date.now() - lastTyped > 5000){ // 5 segundos sin escribir
+    api('GET').then(d=>{
+      if(d){ S.results=d.results; S.players=d.players; S.predictions=d.predictions; renderClas(); renderAdmin(); badge('ok'); }
+    });
+  }
+},30000);
 </script>
 </body>
 </html>
