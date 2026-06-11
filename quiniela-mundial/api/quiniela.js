@@ -1,4 +1,6 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,9 +11,9 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const [players, predictions, results] = await Promise.all([
-        kv.get('players'),
-        kv.get('predictions'),
-        kv.get('results'),
+        redis.get('players'),
+        redis.get('predictions'),
+        redis.get('results'),
       ]);
       return res.json({
         players: players || [],
@@ -24,25 +26,25 @@ export default async function handler(req, res) {
       const { action, payload } = req.body;
 
       if (action === 'add_player') {
-        let players = (await kv.get('players')) || [];
+        let players = (await redis.get('players')) || [];
         if (!players.includes(payload.name)) {
           players.push(payload.name);
-          await kv.set('players', players);
+          await redis.set('players', players);
         }
         return res.json({ ok: true, players });
       }
 
       if (action === 'save_predictions') {
-        const predictions = (await kv.get('predictions')) || {};
+        const predictions = (await redis.get('predictions')) || {};
         predictions[payload.player] = payload.data;
-        await kv.set('predictions', predictions);
+        await redis.set('predictions', predictions);
         return res.json({ ok: true });
       }
 
       if (action === 'save_results') {
-        const results = (await kv.get('results')) || {};
+        const results = (await redis.get('results')) || {};
         Object.assign(results, payload.data);
-        await kv.set('results', results);
+        await redis.set('results', results);
         return res.json({ ok: true });
       }
 
