@@ -104,6 +104,7 @@ body{background:var(--bg);color:var(--crema);font-family:'Segoe UI',system-ui,sa
 
 <div class="tabs">
   <div class="tab active"  onclick="showTab('grupos',this)">Grupos</div>
+  <div class="tab" onclick="showTab('dieciseis',this)">16avos</div>
   <div class="tab" onclick="showTab('octavos',this)">Octavos</div>
   <div class="tab" onclick="showTab('cuartos',this)">Cuartos</div>
   <div class="tab" onclick="showTab('semis',this)">Semis</div>
@@ -112,13 +113,14 @@ body{background:var(--bg);color:var(--crema);font-family:'Segoe UI',system-ui,sa
   <div class="tab" onclick="showTab('admin',this)">⚙️</div>
 </div>
 
-<div id="tab-grupos"  class="section active"></div>
-<div id="tab-octavos" class="section"></div>
-<div id="tab-cuartos" class="section"></div>
-<div id="tab-semis"   class="section"></div>
-<div id="tab-final"   class="section"></div>
-<div id="tab-clas"    class="section"></div>
-<div id="tab-admin"   class="section"></div>
+<div id="tab-grupos"    class="section active"></div>
+<div id="tab-dieciseis" class="section"></div>
+<div id="tab-octavos"   class="section"></div>
+<div id="tab-cuartos"   class="section"></div>
+<div id="tab-semis"     class="section"></div>
+<div id="tab-final"     class="section"></div>
+<div id="tab-clas"      class="section"></div>
+<div id="tab-admin"     class="section"></div>
 
 <div class="overlay" id="modal" style="display:none">
   <div class="modal">
@@ -137,108 +139,109 @@ body{background:var(--bg);color:var(--crema);font-family:'Segoe UI',system-ui,sa
 // ═══════════════════════════════════════════════
 const GR = [
   {n:"A",ps:[
-    {id:"A1",lf:"🇺🇸",ln:"EE.UU.",    vf:"🇧🇦",vn:"Bosnia",      f:"12 Jun"},
-    {id:"A2",lf:"🇵🇹",ln:"Portugal",  vf:"🇲🇦",vn:"Marruecos",   f:"12 Jun"},
-    {id:"A3",lf:"🇺🇸",ln:"EE.UU.",    vf:"🇵🇹",vn:"Portugal",    f:"17 Jun"},
-    {id:"A4",lf:"🇧🇦",ln:"Bosnia",    vf:"🇲🇦",vn:"Marruecos",   f:"17 Jun"},
-    {id:"A5",lf:"🇲🇦",ln:"Marruecos", vf:"🇺🇸",vn:"EE.UU.",      f:"22 Jun"},
-    {id:"A6",lf:"🇵🇹",ln:"Portugal",  vf:"🇧🇦",vn:"Bosnia",      f:"22 Jun"},
+    {id:"A1",lf:"🇲🇽",ln:"México",     vf:"🇿🇦",vn:"Sudáfrica",   f:"11 Jun"},
+    {id:"A2",lf:"🇰🇷",ln:"Corea S.",   vf:"🇨🇿",vn:"Chequia",     f:"11 Jun"},
+    {id:"A3",lf:"🇲🇽",ln:"México",     vf:"🇰🇷",vn:"Corea S.",    f:"18 Jun"},
+    {id:"A4",lf:"🇨🇿",ln:"Chequia",    vf:"🇿🇦",vn:"Sudáfrica",   f:"18 Jun"},
+    {id:"A5",lf:"🇲🇽",ln:"México",     vf:"🇨🇿",vn:"Chequia",     f:"24 Jun"},
+    {id:"A6",lf:"🇿🇦",ln:"Sudáfrica",  vf:"🇰🇷",vn:"Corea S.",    f:"24 Jun"},
   ]},
   {n:"B",ps:[
-    {id:"B1",lf:"🇦🇷",ln:"Argentina", vf:"🇲🇽",vn:"México",      f:"13 Jun"},
-    {id:"B2",lf:"🇨🇱",ln:"Chile",     vf:"🇯🇵",vn:"Japón",       f:"13 Jun"},
-    {id:"B3",lf:"🇦🇷",ln:"Argentina", vf:"🇨🇱",vn:"Chile",       f:"18 Jun"},
-    {id:"B4",lf:"🇲🇽",ln:"México",    vf:"🇯🇵",vn:"Japón",       f:"18 Jun"},
-    {id:"B5",lf:"🇯🇵",ln:"Japón",     vf:"🇦🇷",vn:"Argentina",   f:"23 Jun"},
-    {id:"B6",lf:"🇲🇽",ln:"México",    vf:"🇨🇱",vn:"Chile",       f:"23 Jun"},
+    {id:"B1",lf:"🇨🇦",ln:"Canadá",     vf:"🇧🇦",vn:"Bosnia",      f:"12 Jun"},
+    {id:"B2",lf:"🇶🇦",ln:"Qatar",      vf:"🇨🇭",vn:"Suiza",       f:"12 Jun"},
+    {id:"B3",lf:"🇨🇦",ln:"Canadá",     vf:"🇶🇦",vn:"Qatar",       f:"19 Jun"},
+    {id:"B4",lf:"🇧🇦",ln:"Bosnia",     vf:"🇨🇭",vn:"Suiza",       f:"19 Jun"},
+    {id:"B5",lf:"🇨🇦",ln:"Canadá",     vf:"🇨🇭",vn:"Suiza",       f:"25 Jun"},
+    {id:"B6",lf:"🇧🇦",ln:"Bosnia",     vf:"🇶🇦",vn:"Qatar",       f:"25 Jun"},
   ]},
   {n:"C",ps:[
-    {id:"C1",lf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",ln:"Inglaterra",vf:"🇸🇳",vn:"Senegal",    f:"13 Jun"},
-    {id:"C2",lf:"🇳🇱",ln:"Holanda",   vf:"🇨🇩",vn:"R.D.Congo",  f:"13 Jun"},
-    {id:"C3",lf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",ln:"Inglaterra",vf:"🇳🇱",vn:"Holanda",     f:"18 Jun"},
-    {id:"C4",lf:"🇸🇳",ln:"Senegal",   vf:"🇨🇩",vn:"R.D.Congo",  f:"18 Jun"},
-    {id:"C5",lf:"🇨🇩",ln:"R.D.Congo", vf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",vn:"Inglaterra",f:"23 Jun"},
-    {id:"C6",lf:"🇸🇳",ln:"Senegal",   vf:"🇳🇱",vn:"Holanda",    f:"23 Jun"},
+    {id:"C1",lf:"🇧🇷",ln:"Brasil",     vf:"🇲🇦",vn:"Marruecos",   f:"13 Jun"},
+    {id:"C2",lf:"🇭🇹",ln:"Haití",      vf:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",vn:"Escocia",     f:"13 Jun"},
+    {id:"C3",lf:"🇧🇷",ln:"Brasil",     vf:"🇭🇹",vn:"Haití",       f:"20 Jun"},
+    {id:"C4",lf:"🇲🇦",ln:"Marruecos",  vf:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",vn:"Escocia",     f:"20 Jun"},
+    {id:"C5",lf:"🇧🇷",ln:"Brasil",     vf:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",vn:"Escocia",     f:"26 Jun"},
+    {id:"C6",lf:"🇲🇦",ln:"Marruecos",  vf:"🇭🇹",vn:"Haití",       f:"26 Jun"},
   ]},
   {n:"D",ps:[
-    {id:"D1",lf:"🇧🇷",ln:"Brasil",    vf:"🇽🇽",vn:"Por definir", f:"14 Jun"},
-    {id:"D2",lf:"🇩🇪",ln:"Alemania",  vf:"🇷🇸",vn:"Serbia",      f:"14 Jun"},
-    {id:"D3",lf:"🇧🇷",ln:"Brasil",    vf:"🇩🇪",vn:"Alemania",    f:"19 Jun"},
-    {id:"D4",lf:"🇷🇸",ln:"Serbia",    vf:"🇽🇽",vn:"Por definir", f:"19 Jun"},
-    {id:"D5",lf:"🇩🇪",ln:"Alemania",  vf:"🇽🇽",vn:"Por definir", f:"24 Jun"},
-    {id:"D6",lf:"🇷🇸",ln:"Serbia",    vf:"🇧🇷",vn:"Brasil",      f:"24 Jun"},
+    {id:"D1",lf:"🇺🇸",ln:"EE.UU.",     vf:"🇵🇾",vn:"Paraguay",    f:"12 Jun"},
+    {id:"D2",lf:"🇦🇺",ln:"Australia",  vf:"🇹🇷",vn:"Turquía",     f:"12 Jun"},
+    {id:"D3",lf:"🇺🇸",ln:"EE.UU.",     vf:"🇦🇺",vn:"Australia",   f:"19 Jun"},
+    {id:"D4",lf:"🇵🇾",ln:"Paraguay",   vf:"🇹🇷",vn:"Turquía",     f:"19 Jun"},
+    {id:"D5",lf:"🇺🇸",ln:"EE.UU.",     vf:"🇹🇷",vn:"Turquía",     f:"25 Jun"},
+    {id:"D6",lf:"🇦🇺",ln:"Australia",  vf:"🇵🇾",vn:"Paraguay",    f:"25 Jun"},
   ]},
   {n:"E",ps:[
-    {id:"E1",lf:"🇪🇸",ln:"España",    vf:"🇨🇷",vn:"Costa Rica",  f:"14 Jun"},
-    {id:"E2",lf:"🇺🇾",ln:"Uruguay",   vf:"🇽🇽",vn:"Por definir", f:"14 Jun"},
-    {id:"E3",lf:"🇪🇸",ln:"España",    vf:"🇺🇾",vn:"Uruguay",     f:"19 Jun"},
-    {id:"E4",lf:"🇨🇷",ln:"Costa Rica",vf:"🇽🇽",vn:"Por definir", f:"19 Jun"},
-    {id:"E5",lf:"🇽🇽",ln:"Por definir",vf:"🇪🇸",vn:"España",    f:"24 Jun"},
-    {id:"E6",lf:"🇨🇷",ln:"Costa Rica",vf:"🇺🇾",vn:"Uruguay",    f:"24 Jun"},
+    {id:"E1",lf:"🇩🇪",ln:"Alemania",   vf:"🇨🇼",vn:"Curaçao",     f:"14 Jun"},
+    {id:"E2",lf:"🇨🇮",ln:"Costa Marfil",vf:"🇪🇨",vn:"Ecuador",    f:"14 Jun"},
+    {id:"E3",lf:"🇩🇪",ln:"Alemania",   vf:"🇨🇮",vn:"Costa Marfil",f:"21 Jun"},
+    {id:"E4",lf:"🇪🇨",ln:"Ecuador",    vf:"🇨🇼",vn:"Curaçao",     f:"21 Jun"},
+    {id:"E5",lf:"🇩🇪",ln:"Alemania",   vf:"🇪🇨",vn:"Ecuador",     f:"27 Jun"},
+    {id:"E6",lf:"🇨🇮",ln:"Costa Marfil",vf:"🇨🇼",vn:"Curaçao",   f:"27 Jun"},
   ]},
   {n:"F",ps:[
-    {id:"F1",lf:"🇫🇷",ln:"Francia",   vf:"🇦🇱",vn:"Albania",     f:"15 Jun"},
-    {id:"F2",lf:"🇧🇪",ln:"Bélgica",   vf:"🇺🇦",vn:"Ucrania",     f:"15 Jun"},
-    {id:"F3",lf:"🇫🇷",ln:"Francia",   vf:"🇧🇪",vn:"Bélgica",     f:"20 Jun"},
-    {id:"F4",lf:"🇦🇱",ln:"Albania",   vf:"🇺🇦",vn:"Ucrania",     f:"20 Jun"},
-    {id:"F5",lf:"🇺🇦",ln:"Ucrania",   vf:"🇫🇷",vn:"Francia",     f:"25 Jun"},
-    {id:"F6",lf:"🇦🇱",ln:"Albania",   vf:"🇧🇪",vn:"Bélgica",     f:"25 Jun"},
+    {id:"F1",lf:"🇳🇱",ln:"Holanda",    vf:"🇯🇵",vn:"Japón",       f:"15 Jun"},
+    {id:"F2",lf:"🇸🇪",ln:"Suecia",     vf:"🇹🇳",vn:"Túnez",       f:"15 Jun"},
+    {id:"F3",lf:"🇳🇱",ln:"Holanda",    vf:"🇸🇪",vn:"Suecia",      f:"22 Jun"},
+    {id:"F4",lf:"🇯🇵",ln:"Japón",      vf:"🇹🇳",vn:"Túnez",       f:"22 Jun"},
+    {id:"F5",lf:"🇳🇱",ln:"Holanda",    vf:"🇹🇳",vn:"Túnez",       f:"28 Jun"},
+    {id:"F6",lf:"🇯🇵",ln:"Japón",      vf:"🇸🇪",vn:"Suecia",      f:"28 Jun"},
   ]},
   {n:"G",ps:[
-    {id:"G1",lf:"🇦🇺",ln:"Australia", vf:"🇽🇽",vn:"Por definir", f:"15 Jun"},
-    {id:"G2",lf:"🇨🇦",ln:"Canadá",    vf:"🇽🇽",vn:"Por definir", f:"15 Jun"},
-    {id:"G3",lf:"🇦🇺",ln:"Australia", vf:"🇨🇦",vn:"Canadá",      f:"20 Jun"},
-    {id:"G4",lf:"🇽🇽",ln:"Por definir",vf:"🇽🇽",vn:"Por definir",f:"20 Jun"},
-    {id:"G5",lf:"🇨🇦",ln:"Canadá",    vf:"🇦🇺",vn:"Australia",   f:"25 Jun"},
-    {id:"G6",lf:"🇽🇽",ln:"Por definir",vf:"🇽🇽",vn:"Por definir",f:"25 Jun"},
+    {id:"G1",lf:"🇧🇪",ln:"Bélgica",    vf:"🇪🇬",vn:"Egipto",      f:"15 Jun"},
+    {id:"G2",lf:"🇮🇷",ln:"Irán",       vf:"🇳🇿",vn:"N.Zelanda",   f:"15 Jun"},
+    {id:"G3",lf:"🇧🇪",ln:"Bélgica",    vf:"🇮🇷",vn:"Irán",        f:"22 Jun"},
+    {id:"G4",lf:"🇪🇬",ln:"Egipto",     vf:"🇳🇿",vn:"N.Zelanda",   f:"22 Jun"},
+    {id:"G5",lf:"🇧🇪",ln:"Bélgica",    vf:"🇳🇿",vn:"N.Zelanda",   f:"28 Jun"},
+    {id:"G6",lf:"🇪🇬",ln:"Egipto",     vf:"🇮🇷",vn:"Irán",        f:"28 Jun"},
   ]},
   {n:"H",ps:[
-    {id:"H1",lf:"🇳🇬",ln:"Nigeria",   vf:"🇽🇽",vn:"Por definir", f:"16 Jun"},
-    {id:"H2",lf:"🇸🇪",ln:"Suecia",    vf:"🇰🇷",vn:"Corea S.",    f:"16 Jun"},
-    {id:"H3",lf:"🇳🇬",ln:"Nigeria",   vf:"🇸🇪",vn:"Suecia",      f:"21 Jun"},
-    {id:"H4",lf:"🇽🇽",ln:"Por definir",vf:"🇰🇷",vn:"Corea S.",   f:"21 Jun"},
-    {id:"H5",lf:"🇰🇷",ln:"Corea S.",  vf:"🇳🇬",vn:"Nigeria",     f:"26 Jun"},
-    {id:"H6",lf:"🇽🇽",ln:"Por definir",vf:"🇸🇪",vn:"Suecia",     f:"26 Jun"},
+    {id:"H1",lf:"🇪🇸",ln:"España",     vf:"🇨🇻",vn:"Cabo Verde",  f:"16 Jun"},
+    {id:"H2",lf:"🇸🇦",ln:"Arabia S.",  vf:"🇺🇾",vn:"Uruguay",     f:"16 Jun"},
+    {id:"H3",lf:"🇪🇸",ln:"España",     vf:"🇸🇦",vn:"Arabia S.",   f:"23 Jun"},
+    {id:"H4",lf:"🇨🇻",ln:"Cabo Verde", vf:"🇺🇾",vn:"Uruguay",     f:"23 Jun"},
+    {id:"H5",lf:"🇪🇸",ln:"España",     vf:"🇺🇾",vn:"Uruguay",     f:"29 Jun"},
+    {id:"H6",lf:"🇨🇻",ln:"Cabo Verde", vf:"🇸🇦",vn:"Arabia S.",   f:"29 Jun"},
   ]},
   {n:"I",ps:[
-    {id:"I1",lf:"🇮🇹",ln:"Italia",    vf:"🇽🇽",vn:"Por definir", f:"16 Jun"},
-    {id:"I2",lf:"🇨🇴",ln:"Colombia",  vf:"🇩🇿",vn:"Argelia",     f:"16 Jun"},
-    {id:"I3",lf:"🇮🇹",ln:"Italia",    vf:"🇨🇴",vn:"Colombia",    f:"21 Jun"},
-    {id:"I4",lf:"🇩🇿",ln:"Argelia",   vf:"🇽🇽",vn:"Por definir", f:"21 Jun"},
-    {id:"I5",lf:"🇩🇿",ln:"Argelia",   vf:"🇮🇹",vn:"Italia",      f:"26 Jun"},
-    {id:"I6",lf:"🇽🇽",ln:"Por definir",vf:"🇨🇴",vn:"Colombia",   f:"26 Jun"},
+    {id:"I1",lf:"🇫🇷",ln:"Francia",    vf:"🇸🇳",vn:"Senegal",     f:"17 Jun"},
+    {id:"I2",lf:"🇮🇶",ln:"Irak",       vf:"🇳🇴",vn:"Noruega",     f:"17 Jun"},
+    {id:"I3",lf:"🇫🇷",ln:"Francia",    vf:"🇮🇶",vn:"Irak",        f:"24 Jun"},
+    {id:"I4",lf:"🇸🇳",ln:"Senegal",    vf:"🇳🇴",vn:"Noruega",     f:"24 Jun"},
+    {id:"I5",lf:"🇫🇷",ln:"Francia",    vf:"🇳🇴",vn:"Noruega",     f:"30 Jun"},
+    {id:"I6",lf:"🇸🇳",ln:"Senegal",    vf:"🇮🇶",vn:"Irak",        f:"30 Jun"},
   ]},
   {n:"J",ps:[
-    {id:"J1",lf:"🇸🇦",ln:"Arabia S.", vf:"🇳🇬",vn:"Nigeria",     f:"17 Jun"},
-    {id:"J2",lf:"🇭🇷",ln:"Croacia",   vf:"🇳🇿",vn:"N.Zelanda",   f:"17 Jun"},
-    {id:"J3",lf:"🇸🇦",ln:"Arabia S.", vf:"🇭🇷",vn:"Croacia",     f:"22 Jun"},
-    {id:"J4",lf:"🇳🇬",ln:"Nigeria",   vf:"🇳🇿",vn:"N.Zelanda",   f:"22 Jun"},
-    {id:"J5",lf:"🇳🇿",ln:"N.Zelanda", vf:"🇸🇦",vn:"Arabia S.",   f:"27 Jun"},
-    {id:"J6",lf:"🇳🇬",ln:"Nigeria",   vf:"🇭🇷",vn:"Croacia",     f:"27 Jun"},
+    {id:"J1",lf:"🇦🇷",ln:"Argentina",  vf:"🇩🇿",vn:"Argelia",     f:"17 Jun"},
+    {id:"J2",lf:"🇦🇹",ln:"Austria",    vf:"🇯🇴",vn:"Jordania",    f:"17 Jun"},
+    {id:"J3",lf:"🇦🇷",ln:"Argentina",  vf:"🇦🇹",vn:"Austria",     f:"24 Jun"},
+    {id:"J4",lf:"🇩🇿",ln:"Argelia",    vf:"🇯🇴",vn:"Jordania",    f:"24 Jun"},
+    {id:"J5",lf:"🇦🇷",ln:"Argentina",  vf:"🇯🇴",vn:"Jordania",    f:"30 Jun"},
+    {id:"J6",lf:"🇩🇿",ln:"Argelia",    vf:"🇦🇹",vn:"Austria",     f:"30 Jun"},
   ]},
   {n:"K",ps:[
-    {id:"K1",lf:"🇨🇭",ln:"Suiza",     vf:"🇿🇦",vn:"Sudáfrica",   f:"17 Jun"},
-    {id:"K2",lf:"🇲🇽",ln:"México",    vf:"🇹🇳",vn:"Túnez",       f:"17 Jun"},
-    {id:"K3",lf:"🇨🇭",ln:"Suiza",     vf:"🇲🇽",vn:"México",      f:"22 Jun"},
-    {id:"K4",lf:"🇿🇦",ln:"Sudáfrica", vf:"🇹🇳",vn:"Túnez",       f:"22 Jun"},
-    {id:"K5",lf:"🇹🇳",ln:"Túnez",     vf:"🇨🇭",vn:"Suiza",       f:"27 Jun"},
-    {id:"K6",lf:"🇿🇦",ln:"Sudáfrica", vf:"🇲🇽",vn:"México",      f:"27 Jun"},
+    {id:"K1",lf:"🇵🇹",ln:"Portugal",   vf:"🇨🇩",vn:"R.D.Congo",  f:"18 Jun"},
+    {id:"K2",lf:"🇺🇿",ln:"Uzbekistán", vf:"🇨🇴",vn:"Colombia",    f:"18 Jun"},
+    {id:"K3",lf:"🇵🇹",ln:"Portugal",   vf:"🇺🇿",vn:"Uzbekistán",  f:"25 Jun"},
+    {id:"K4",lf:"🇨🇩",ln:"R.D.Congo",  vf:"🇨🇴",vn:"Colombia",    f:"25 Jun"},
+    {id:"K5",lf:"🇵🇹",ln:"Portugal",   vf:"🇨🇴",vn:"Colombia",    f:"1 Jul"},
+    {id:"K6",lf:"🇨🇩",ln:"R.D.Congo",  vf:"🇺🇿",vn:"Uzbekistán",  f:"1 Jul"},
   ]},
   {n:"L",ps:[
-    {id:"L1",lf:"🇶🇦",ln:"Qatar",     vf:"🇸🇮",vn:"Eslovenia",   f:"18 Jun"},
-    {id:"L2",lf:"🇵🇱",ln:"Polonia",   vf:"🇨🇲",vn:"Camerún",     f:"18 Jun"},
-    {id:"L3",lf:"🇶🇦",ln:"Qatar",     vf:"🇵🇱",vn:"Polonia",     f:"23 Jun"},
-    {id:"L4",lf:"🇸🇮",ln:"Eslovenia", vf:"🇨🇲",vn:"Camerún",     f:"23 Jun"},
-    {id:"L5",lf:"🇨🇲",ln:"Camerún",   vf:"🇶🇦",vn:"Qatar",       f:"28 Jun"},
-    {id:"L6",lf:"🇸🇮",ln:"Eslovenia", vf:"🇵🇱",vn:"Polonia",     f:"28 Jun"},
+    {id:"L1",lf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",ln:"Inglaterra", vf:"🇭🇷",vn:"Croacia",     f:"18 Jun"},
+    {id:"L2",lf:"🇬🇭",ln:"Ghana",      vf:"🇵🇦",vn:"Panamá",      f:"18 Jun"},
+    {id:"L3",lf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",ln:"Inglaterra", vf:"🇬🇭",vn:"Ghana",       f:"25 Jun"},
+    {id:"L4",lf:"🇭🇷",ln:"Croacia",    vf:"🇵🇦",vn:"Panamá",      f:"25 Jun"},
+    {id:"L5",lf:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",ln:"Inglaterra", vf:"🇵🇦",vn:"Panamá",      f:"1 Jul"},
+    {id:"L6",lf:"🇭🇷",ln:"Croacia",    vf:"🇬🇭",vn:"Ghana",       f:"1 Jul"},
   ]},
 ];
 
 const ELIM = {
-  octavos:{label:"Octavos de Final",sub:"16 → 8 equipos",ps:Array.from({length:8},(_,i)=>({id:`O${i+1}`,lf:"🏳️",ln:`Clas. ${i*2+1}`,vf:"🏳️",vn:`Clas. ${i*2+2}`,f:"1–4 Jul"}))},
-  cuartos:{label:"Cuartos de Final",sub:"8 → 4 equipos",ps:Array.from({length:4},(_,i)=>({id:`Q${i+1}`,lf:"🏳️",ln:`Gan. O${i*2+1}`,vf:"🏳️",vn:`Gan. O${i*2+2}`,f:"5–6 Jul"}))},
-  semis:  {label:"Semifinales",sub:"4 → 2 equipos",ps:Array.from({length:2},(_,i)=>({id:`S${i+1}`,lf:"🏳️",ln:`Gan. Q${i*2+1}`,vf:"🏳️",vn:`Gan. Q${i*2+2}`,f:"15–16 Jul"}))},
-  final:  {label:"Gran Final 🏆",sub:"MetLife Stadium · 26 Jul",ps:[{id:"FIN",lf:"🏳️",ln:"Gan. Semi 1",vf:"🏳️",vn:"Gan. Semi 2",f:"26 Jul"}]},
+  dieciseis:{label:"Dieciseisavos de Final",sub:"32 → 16 equipos",ps:Array.from({length:16},(_,i)=>({id:`R${i+1}`,lf:"🏳️",ln:`Clasif. ${i*2+1}`,vf:"🏳️",vn:`Clasif. ${i*2+2}`,f:"28 Jun–3 Jul"}))},
+  octavos:  {label:"Octavos de Final",sub:"16 → 8 equipos",ps:Array.from({length:8},(_,i)=>({id:`O${i+1}`,lf:"🏳️",ln:`Gan. R${i*2+1}`,vf:"🏳️",vn:`Gan. R${i*2+2}`,f:"4–7 Jul"}))},
+  cuartos:  {label:"Cuartos de Final",sub:"8 → 4 equipos",ps:Array.from({length:4},(_,i)=>({id:`Q${i+1}`,lf:"🏳️",ln:`Gan. O${i*2+1}`,vf:"🏳️",vn:`Gan. O${i*2+2}`,f:"9–11 Jul"}))},
+  semis:    {label:"Semifinales",sub:"4 → 2 equipos",ps:Array.from({length:2},(_,i)=>({id:`S${i+1}`,lf:"🏳️",ln:`Gan. Q${i*2+1}`,vf:"🏳️",vn:`Gan. Q${i*2+2}`,f:"14–15 Jul"}))},
+  final:    {label:"Gran Final 🏆",sub:"MetLife Stadium · 19 Jul",ps:[{id:"FIN",lf:"🏳️",ln:"Gan. Semi 1",vf:"🏳️",vn:"Gan. Semi 2",f:"19 Jul"}]},
 };
 
 // ═══════════════════════════════════════════════
